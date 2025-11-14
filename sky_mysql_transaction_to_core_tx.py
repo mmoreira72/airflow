@@ -41,7 +41,7 @@ with DAG(
         """
         mysql_hook = MySqlHook(mysql_conn_id="db2")
 
-        sql = "SELECT id source_tx_id, cpf customer_id, 'credit'codeword, points amount, 'SKY' source_system, ip , 'POI' currency  FROM wp_transactions LIMIT 10;"
+        sql = "SELECT id source_tx_id, cpf customer_id, 'credit'codeword, points amount, 'SKY' source_system, ip , 'POI' currency, 0 account_id, description, now() ts, 'approved' status FROM wp_transactions LIMIT 10;"
         rows = mysql_hook.get_records(sql)
 
         from airflow.utils.log.logging_mixin import LoggingMixin
@@ -77,7 +77,7 @@ with DAG(
         pg_hook.insert_rows(
             table="core.tx",
             rows=rows,
-            target_fields=["source_tx_id", "customer_id", "codeword", "amount", "source_system", "ip", "currency"],
+            target_fields=["source_tx_id", "customer_id", "codeword", "amount", "source_system", "ip", "currency", "account_id", "description", "ts", "status"],
         )
 
         logger.info("Finished loading rows into Postgres.")
