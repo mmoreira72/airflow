@@ -25,7 +25,7 @@ from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 
 with DAG(
-    dag_id="mysql_to_postgres_example",
+    dag_id="sky_mysql_transaction_to_core_tx",
     description="Example DAG: extract from MySQL and load into Postgres",
     start_date=datetime(2024, 1, 1),
     schedule="@daily",  # or None for manual only
@@ -41,7 +41,7 @@ with DAG(
         """
         mysql_hook = MySqlHook(mysql_conn_id="db2")
 
-        sql = "SELECT id source_tx_id, cpf customer_id, codeword, points, 'SKY' source_system, ip  FROM sky.wp_transactions LIMIT 10;"
+        sql = "SELECT id source_tx_id, cpf customer_id, codeword, points, 'SKY' source_system, ip  FROM wp_transactions LIMIT 10;"
         rows = mysql_hook.get_records(sql)
 
         from airflow.utils.log.logging_mixin import LoggingMixin
