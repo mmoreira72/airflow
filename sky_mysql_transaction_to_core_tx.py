@@ -28,7 +28,7 @@ def copy_transactions_to_core_tx(**context):
 with DAG(
     dag_id="sky_mysql_transaction_to_core_tx",
     start_date=datetime(2024, 1, 1),
-    schedule_interval="@daily",  # or None if you only want manual runs
+    schedule="@daily",  # or None if you only want manual runs
     catchup=False,
     tags=["example", "sky-transactions"],
 ) as dag:
