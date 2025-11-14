@@ -6,7 +6,7 @@ from airflow.providers.mysql.hooks.mysql import MySqlHook
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 
-def copy_transactions_to_core_tx(**context):
+#def copy_transactions_to_core_tx(**context):
     # 1) Connect to MySQL
     #mysql = MySqlHook(mysql_conn_id="db2")
 
@@ -31,8 +31,9 @@ with DAG(
     schedule="@daily",  # or None if you only want manual runs
     catchup=False,
     tags=["example", "sky-transactions"],
-) as dag:
-    copy_task = PythonOperator(
-        task_id="copy_transactions",
-        python_callable=copy_transactions_to_core_tx,
-    )
+) : EmptyOperator(task_id="start") >> EmptyOperator(task_id="end")
+    #as dag:
+    #copy_task = PythonOperator(
+    #    task_id="copy_transactions",
+    #    python_callable=copy_transactions_to_core_tx,
+    #)
