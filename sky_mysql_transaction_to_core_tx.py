@@ -4,6 +4,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.providers.mysql.hooks.mysql import MySqlHook
 from airflow.providers.postgres.hooks.postgres import PostgresHook
+from airflow.operators.empty import EmptyOperator
 
 
 #def copy_transactions_to_core_tx(**context):
