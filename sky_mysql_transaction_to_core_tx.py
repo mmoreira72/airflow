@@ -8,17 +8,17 @@ from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 def copy_transactions_to_core_tx(**context):
     # 1) Connect to MySQL
-    mysql = MySqlHook(mysql_conn_id="db2")
+    #mysql = MySqlHook(mysql_conn_id="db2")
 
     # 2) Connect to Postgres
-    pg = PostgresHook(postgres_conn_id="lake")
+    #pg = PostgresHook(postgres_conn_id="lake")
 
     # 3) Read all rows from MySQL.transaction
     #    TODO: adjust column list if you don't want SELECT *.
-    rows = mysql.get_records("SELECT * FROM transaction limit 10;")
+    #rows = mysql.get_records("SELECT * FROM transaction limit 10;")
 
     # 4) Optional: clear target table before loading
-    pg.run("TRUNCATE TABLE core.tx;")
+    #pg.run("TRUNCATE TABLE core.tx;")
 
     # 5) Insert rows into Postgres core.tx
     #    Assumes column order in core.tx matches MySQL.transaction.
